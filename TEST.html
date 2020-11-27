@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcdn.net/ajax/libs/openlayers/4.6.5/ol.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/openlayers/4.6.5/ol.css" rel="stylesheet">
+
+    <script src="./ol-plot.js"></script>
+    <link href="./ol-plot.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: "Microsoft YaHei";
+        }
+        
+        .user-tool {
+            position: absolute;
+            top: 10px;
+            left: calc(50% - (50% - 50px));
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div class="user-tool" id="user-tool">
+        <button id="1">点</button>
+        <button id="2">折线</button>
+        <button id="3">圆狐</button>
+        <button id="4">圆</button>
+        <button id="5">曲线</button>
+        <button id="6">自由线</button>
+        <button id="7">矩形</button>
+        <button id="8">椭圆</button>
+        <button id="9">弓形</button>
+        <button id="10">扇形</button>
+        <button id="11">闭合曲线</button>
+        <button id="12">多边形</button>
+        <button id="13">自由面</button>
+        <button id="14">进攻箭头</button>
+        <button id="15">双箭头</button>
+        <button id="16">细直箭头</button>
+        <button id="17">粗尾直箭头</button>
+        <button id="18">直箭头</button>
+        <button id="19">尾部分开的进攻箭头</button>
+        <button id="20">无需定义尾部的进攻箭头</button>
+        <button id="21">尾部分开的单箭头</button>
+        <button id="22">聚集面</button>
+        <button id="23">矩形旗帜</button>
+        <button id="24">三角形旗帜</button>
+        <button id="25">旗帜</button>
+        <button id="26">文字框</button>
+
+
+        <button id="27">获取图层</button>
+        <button id="28">添加图层</button>
+        <button id="29">获取属性</button>
+        <button id="30">自定义添加图层</button>
+        <button id="31">移除图像</button>
+
+
+    </div>
+    <script>
+        var map = new ol.Map({
+            layers: [new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: "http://wprd0{1-4}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7"
+                })
+            })],
+            view: new ol.View({
+                center: [118., 24.5],
+                projection: 'EPSG:4326',
+                zoom: 10
+            }),
+            target: 'map'
+        });
+
+        $("#1").click(function() {
+            window.x = WMapMarkPlot(map, {
+                // pointRadius: 10,
+                markType: "Point",
+            })
+
+        })
+
+
+        $("#2").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "Polyline",
+                fillColor: "pink",
+                fillOpacity: 0.5,
+                strokeColor: "rgb(55,55,55)",
+                strokeOpacity: 0.8,
+                lineWidth: 2,
+                lineDash: false
+
+            })
+        })
+
+        $("#3").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "Arc",
+                fillColor: "red",
+            })
+        })
+        $("#4").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "green",
+                markType: "Circle"
+            })
+        })
+        $("#5").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "orange",
+                markType: "Curve"
+            })
+        })
+        $("#6").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "FreeLine"
+            })
+        })
+        $("#7").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "grey",
+                markType: "RectAngle"
+            })
+        })
+        $("#8").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "purple",
+                markType: "Ellipse"
+            })
+        })
+        $("#9").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "yellow",
+                markType: "Lune"
+            })
+        })
+        $("#10").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "pink",
+                markType: "Sector"
+            })
+        })
+        $("#11").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "yellow",
+                markType: "ClosedCurve"
+            })
+        })
+        $("#12").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "purple",
+                markType: "Polygon"
+            })
+        })
+        $("#13").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "FreePolygon"
+            })
+        })
+        $("#14").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "AttackArrow"
+            })
+        })
+        $("#15").click(function() {
+            window.x = WMapMarkPlot(map, {
+                fillColor: "purple",
+                markType: "DoubleArrow"
+            })
+        })
+        $("#16").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "StraightArrow"
+            })
+        })
+        $("#17").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "FineArrow"
+            })
+        })
+        $("#18").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "AssaultDirection"
+            })
+        })
+        $("#19").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "TailedAttackArrow"
+            })
+        })
+        $("#20").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "SquadCombat"
+            })
+        })
+        $("#21").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "TailedSquadCombat"
+            })
+        })
+        $("#22").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "GatheringPlace"
+            })
+        })
+        $("#23").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "RectFlag"
+            })
+        })
+        $("#24").click(function() {
+            window.x = WMapMarkPlot(map, {
+
+                markType: "TriangleFlag"
+            })
+        })
+        $("#25").click(function() {
+            window.x = WMapMarkPlot(map, {
+                markType: "CurveFlag"
+            })
+        })
+        $("#26").click(function() {
+            window.x = WMapMarkPlot(map, {
+                markType: "TextArea"
+            })
+        })
+        $("#27").click(function() {
+            window.c = x.getFeatures()
+            console.log(c)
+        })
+        $("#28").click(function() {
+            x.addFeatures(c)
+        })
+
+        $("#29").click(function() {
+            x.printProperty()
+        })
+
+        $("#30").click(function() {
+
+            x.addFeaturesByProperty({
+                spatialType: "Polygon",
+                type: "Polygon",
+                points: [
+                    [118, 24.5],
+                    [118.5, 24.6],
+                    [118.4, 24.8],
+                    [118.5, 24.9],
+                ],
+                fillColor: "blue",
+                strokeColor: "orange",
+                lineDash: true
+            })
+        })
+        $("#31").click(function() {
+
+            x.removeAllFeatures()
+        })
+    </script>
+</body>
+
+</html>
